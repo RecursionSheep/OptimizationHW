@@ -4,7 +4,7 @@ Homework assignments of the course ``Introduction to Optimization Theory'' are k
 
 The problems are from the textbook: *Introduction to Linear Optimization*, by Dimitris Bertsimas & John N. Tsitsiklis.
 
-**The correctness of the solutions are not claimed.**
+**The correctness of the solutions are not guaranteed.**
 
 HW1: Ex. 2.2, 2.4, 2.6, 2.7, 2.8, 2.9.
 
