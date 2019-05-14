@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage{longtable}
+\usepackage{listings}
+\lstset{language=C++}
+\lstset{breaklines}
+\lstset{extendedchars=false}
+\usepackage{syntonly}
+\usepackage{fancyhdr}
+\usepackage{wallpaper}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[colorlinks,CJKbookmarks=true,bookmarksnumbered,linkcolor=red,citecolor=red,plainpages=true,pdfstartview=FitH]{hyperref}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{authblk}
+%\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{diagbox}
+\usepackage{enumerate}
+
+\title{Introduction to Optimization Theory\\Homework Assignment 3}
+\author{Chen Zhiyang, 2017011377}
+\date{April 2019}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\maketitle
+
+\section*{Ex. 4.1}
+The dual problem is:
+$$\text{maximize}\ \ 3p_2+6p_3,$$
+$$\text{subj.\ to\ }\left\{\begin{aligned}
+    &2p_1+3p_2-p_3\ge 1,\\
+    &3p_1+p_2-p_3\le -1,\\
+    &-p_1+4p_2+2p_3\le 0,\\
+    &p_1-2p_2+p_3=0,\\
+    &p_1\le 0,p_2\ge 0.
+\end{aligned}\right.$$
+
+\section*{Ex. 4.3}
+Write down all the constraints of the primal problem and the dual problem. These constraints form a system of linear inequalities. We can use a single call of the subroutine to decide whether the system has a solution. If it does, the only solution is the optimal solution to the primal problem (since it is both feasible in the primal and the dual problem). If not, the primal problem doesn't have an optimum.
+
+\section*{Ex. 4.4}
+The dual problem is:
+$$\text{maximize}\ \ \bm{p}^T\bm{c},$$
+$$\text{subj.\ to\ }\left\{\begin{aligned}
+    &\bm{p}\ge\bm{0},\\
+    &\bm{p}^T\bm{A}\le\bm{c}^T.
+\end{aligned}\right.$$
+
+Note that $\bm{A}$ is symmetric, we have
+The dual problem is:
+$$\text{maximize}\ \ \bm{c}^T\bm{p},$$
+$$\text{subj.\ to\ }\left\{\begin{aligned}
+    &\bm{p}\ge\bm{0},\\
+    &\bm{A}^T\bm{p}=\bm{A}\bm{p}\le\bm{c}.
+\end{aligned}\right.$$
+
+Therefore, $\bm{p}=\bm{x}^*$ is a feasible solution to the dual problem, which results in the same cost. By strong duality theorem we can claim $\bm{x}^*$ is an optimal solution.
+
+\section*{Ex. 4.5}
+\subsection*{(a)}
+True.
+
+By weak duality, we know $\bm{p}^T\bm{b}\le\bm{c}^T\bm{x}$. If there is no feasible associated basic solution to the dual, $\bm{x}^*$ must not be the optimal solution. However, there exists some optimal cost which is equal to the optimal cost in the dual problem. The optimal cost must be smaller than $\bm{c}^T\bm{x}^*$.
+
+\subsection*{(b)}
+True.
+
+The auxiliary primal problem is always feasible and the cost is bounded by 0. By strong duality, we know the dual problem must be feasible.
+
+\subsection*{(c)}
+True.
+
+If we remove an equality constraint, the coefficient of the corresponding dual variable in the dual cost is 0. The same result occurs if we set $p_i=0$.
+
+\subsection*{(d)}
+True.
+
+If the primal problem is unbounded, the dual problem must be infeasible.
+
+\section*{Ex. 4.11}
+\textbf{Proof}
+
+If we omit the last equality constraint, the only modification in the dual problem is that the last variable is removed. The same result occurs if we set the last variable to be 0. After omitting the last constraint, we know the primal is feasible, which means the dual is feasible, too. If we include the last variable, the dual problem is still feasible. By strong duality theorem, we know the dual problem is either unbounded or infeasible. Therefore, the dual must be unbounded.
+
+\section*{Ex. 4.22}
+\textbf{Proof}
+
+If all entries in the $i$-th row are nonnegative except $x_{B(i)}$, we couldn't find a pivot element, which means the dual problem is unbounded, i.e. infinite optimal cost.
+
+\section*{Ex. 4.27}
+\textbf{Proof}
+
+(b)$\Rightarrow$(a):
+
+Consider the LP problem: minimize 0, subj. to $\bm{Ax}\ge\bm{0},\bm{x}\ge\bm{0}.$ Its dual problem is maximize 0, subj. to $\bm{p}^T\bm{A}\le\bm{0},\bm{p}\ge\bm{0}.$ By complementary slackness, we know $(-\bm{p}^T\bm{A}_1)x_1=0$. If $\bm{p}^T\bm{A}_1<0$, $x_1=0$ must hold.
+
+(a)$\Rightarrow$(b):
+
+Let $\bm{C}=[\bm{A}_2, \ldots, \bm{A}_n]$. If there must be $x_1=0$, the polyhedron $-\bm{C}\bm{x}=\bm{A_1},\bm{x}\ge\bm{0}$ must be infeasible. By Farkas' lemma, there exists a $\bm{p}$ s.t. $-\bm{p}^T\bm{C}\ge\bm{0},\bm{p}^T\bm{A}_1<0$, which means $\bm{p}^T\bm{A}\le\bm{0},\bm{p}^T\bm{A}_1<0.$
+
+\section*{Ex. 4.43}
+\subsection*{(a)}
+The feasible set can be illustrated as follows:
+
+\centerline{\includegraphics[width=6cm]{4-43a.png}}
+
+The optimal cost is finite iff
+$$\left\{\begin{aligned}
+    &-c_1-c_2\ge 0,\\
+    &-2c_1-c_2\ge 0.
+\end{aligned}\right.$$
+
+\end{document}

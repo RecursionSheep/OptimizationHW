@@ -1,0 +1,305 @@
+\documentclass[12pt]{article}
+\usepackage{longtable}
+\usepackage{listings}
+\lstset{language=C++}
+\lstset{breaklines}
+\lstset{extendedchars=false}
+\usepackage{syntonly}
+\usepackage{fancyhdr}
+\usepackage{wallpaper}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[colorlinks,CJKbookmarks=true,bookmarksnumbered,linkcolor=red,citecolor=red,plainpages=true,pdfstartview=FitH]{hyperref}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{authblk}
+%\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{diagbox}
+\usepackage{enumerate}
+
+\title{Introduction to Optimization Theory\\Homework Assignment 2}
+\author{Chen Zhiyang, 2017011377}
+\date{April 2019}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\maketitle
+
+\section*{Ex. 3.3}
+\textbf{Proof}
+
+$\Rightarrow$:
+
+If $\bm{d}$ is a feasible direction at $\bm{x}$, there exists a scalar $\lambda>0$, s.t. $\bm{x}+\lambda\bm{d}\in P$.
+
+Therefore, $$\bm{A}(\bm{x}+\lambda\bm{d})=\bm{Ax}+\lambda\bm{A}\bm{d}=\bm{0}\Rightarrow \bm{A}\bm{d}=\bm{0},$$ and $$\bm{x}+\lambda\bm{d}\ge 0\Rightarrow \text{for each}\ i\ \text{s.t.}\ x_i=0, x_i+\lambda d_i\ge 0\Rightarrow d_i\ge 0.$$
+
+$\Leftarrow$:
+
+Let $$\lambda=\min_{x_i\neq 0}-\dfrac{d_i}{x_i},$$ obviously we have $\bm{x}+\lambda\bm{d}\ge\bm{0}$, and $\bm{Ad}=\bm{0}\Rightarrow\bm{Ax}+\lambda\bm{Ad}=\bm{A}(\bm{x}+\lambda\bm{d})=\bm{0}$, which means $\bm{d}$ is a feasible direction.
+
+\section*{Ex. 3.4}
+\textbf{Proof}
+
+If $\bm{d}$ is a feasible direction, there exists a scalar $\lambda>0$ s.t. $\bm{x^*}+\lambda\bm{d}\in P$. We have
+\begin{enumerate}[(1)]
+    \item $\bm{A}(\bm{x}+\lambda\bm{d})=\bm{0}\Rightarrow\bm{Ax}+\lambda\bm{Ad}=\bm{0}\Rightarrow\bm{Ad}=\bm{0}.$
+    \item $\bm{Dx^*}=\bm{f},\bm{D}(\bm{x^*}+\lambda\bm{d})\le\bm{f}\Rightarrow\lambda\bm{Dd}<\bm{0}\Rightarrow\bm{Dd}<\bm{0}.$
+\end{enumerate}
+If $\bm{Ad}=\bm{0},\bm{Dd}\le\bm{0}$, let $$\lambda=\min_{(\bm{Ed})_i>0}\dfrac{(\bm{g}-\bm{Ex^*})_i}{(\bm{Ed})_i}.$$
+
+Note that $\lambda>0$ in that $\bm{Ex^*}<\bm{g}$ (if the set $\left\{i:(\bm{Ed})_i>0\right\}$ is empty, let $\lambda$ be any positive number).
+
+We have
+\begin{enumerate}[(1)]
+    \item $\bm{A}(\bm{x^*}+\lambda\bm{d})=\bm{Ax^*}+\lambda\bm{Ad}=\bm{0}.$
+    \item $\bm{D}(\bm{x^*}+\lambda\bm{d})=\bm{Dx^*}+\lambda\bm{Dd}\le\bm{f}.$
+    \item $\bm{E}(\bm{x^*}+\lambda\bm{d})\le\bm{g}.$
+\end{enumerate}
+
+Therefore, $\bm{d}$ is a feasible direction iff $\bm{Ad}=\bm{0},\bm{Dd}\le\bm{0}.$
+
+\section*{Ex. 3.5}
+Let a direction $\bm{d}=(d_1,d_2,d_3)^T$. $\bm{d}$ is feasible at $\bm{x}$ if there exists some $\lambda>0$ s.t. $\bm{x}+\lambda\bm{d}\in P$. To require this, we have to make $\lambda(d_1+d_2+d_3)+1=1$, which means $d_3=-d_1-d_2$. Also, $(\lambda d_1,\lambda d_2, 1+\lambda(-d_1-d_2))\ge\bm{0}\Rightarrow d_1,d_2\ge 0$.
+
+Therefore, the set of feasible directions at $\bm{x}$ is $\left\{(d_1,d_2,-d_1-d_2):d_1,d_2\ge 0\right\}.$
+
+\section*{Ex. 3.6}
+\subsection*{(a)}
+\textbf{Proof}
+
+Suppose $\bm{y}$ is an arbitrary feasible solution other than $\bm{x}$, let $\bm{d}=\bm{y}-\bm{x}$, then $\bm{Ad}=\bm{Ay}-\bm{Ax}=\bm{0}$. Let $N$ be the set of nonbasic indices associated with $\bm{B}$. Rewrite this as $$\bm{B}\bm{d}_B+\sum_{i\in N}\bm{A}_id_i=\bm{0}.$$ Since $\bm{B}$ is invertible, we have $\bm{d}_B=-\sum_{i\in N}\bm{B}^{-1}\bm{A}_id_i.$ Therefore, $$\bm{c}^T\bm{d}=\bm{c}^T_B\bm{d}_B+\sum_{i\in N}c_id_i=\sum_{i\in N}(c_i-\bm{c}^T_B\bm{B}^{-1}\bm{A}_i)d_i=\sum_{i\in N}\bar{c}_id_i.$$ If for all $i\in N$, $y_i=0$, we have $\bm{Ay}=\bm{B}\bm{y}_B=\bm{b}$, which means $\bm{x}=\bm{y}$. Therefore, there exists $j\in N$ s.t. $y_j>0,$ and $$\bm{c}^T\bm{d}=\sum_{i\in N}\bar{c}_id_i=\sum_{i\in N}\bar{c}_iy_i\ge\bar{c}_jy_j>0.$$
+\subsection*{(b)}
+\textbf{Proof}
+
+Suppose $\bar{c}_j\le 0,j\in N$. Let $\bm{d}$ be the $j$-th basic direction. As $\bm{x}$ is non-degenerate, we know $\bm{d}$ is always a feasible direction. There exists $\lambda>0$, s.t. $\bm{x}+\lambda\bm{d}\in P$. Then $\bm{c}^T\bm{d}=\bar{c}_jd_j=\bar{c}_j\le 0.$ By choosing sufficiently small $\lambda>0$ so that $\bm{x}+\lambda\bm{d}\in P$, we get $\lambda\bm{c}^T\bm{d}\le 0$, which means the cost of $\bm{x}+\lambda\bm{d}$ is not larger than the cost of $\bm{x}$. However, we know $\bm{x}$ is the unique optimal solution, which leads to a contradiction.
+
+\section*{Ex. 3.7}
+\textbf{Proof}
+
+That the new LP problem has an optimal cost of zero means for all $\bm{d}$, s.t. $\bm{Ad}=\bm{0},d_i\ge 0,i\in Z$, we have $\bm{c}^T\bm{d}\ge 0$. This is equivalent to at $\bm{x}$, for any feasible direction $\bm{d}$, $\bm{c}^T\bm{d}\ge 0$, which means $\bm{x}$ is optimal.
+
+\section*{Ex. 3.12}
+\subsection*{(a)}
+We add two artificial variables $y_1, y_2$. The constraints become:
+\begin{align*}
+    x_1-x_2+y_1&=2,\\
+    x_1+x_2+y_2&=6,\\
+    x_1,x_2,y_1,y_2&\ge 0.
+\end{align*}
+It's easy to see $(x_1,x_2,y_1,y_2)=(0,0,2,6)$ is a basic feasible solution.
+\subsection*{(b)}
+In this problem we have $$\bm{A}=\left[\begin{matrix}
+1 & -1 & 1 & 0\\
+1 & 1 & 0 & 1
+\end{matrix}\right], \bm{b}=\left[\begin{matrix}
+2\\
+6
+\end{matrix}\right], \bm{c}=\left[\begin{matrix}
+-2\\
+-1\\
+0\\
+0
+\end{matrix}\right].$$
+The initial basic variables are $y_1$ and $y_2$, so at first $\bm{B}=\bm{I}_2$.
+
+Now we get the initial tableau.
+
+~
+
+\centerline{
+\begin{tabular}{|c|cccc|}\hline
+0 & -2 & -1 & 0 & 0 \\\hline
+2 & 1 & -1 & 1 & 0 \\
+6 & 1 & 1 & 0 & 1 \\\hline
+\end{tabular}
+}
+
+~
+
+Let $x_1$ enter the basis and $y_1$ exit the basis.
+
+~
+
+\centerline{
+\begin{tabular}{|c|cccc|}\hline
+4 & 0 & -3 & 2 & 0 \\\hline
+2 & 1 & -1 & 1 & 0 \\
+4 & 0 & 2 & -1 & 1 \\\hline
+\end{tabular}
+}
+
+~
+
+Let $x_2$ enter the basis and $y_2$ exit the basis.
+
+~
+
+\centerline{
+\begin{tabular}{|c|cccc|}\hline
+10 & 0 & 0 & 0.5 & 1.5 \\\hline
+4 & 1 & 0 & 0.5 & 0.5 \\
+2 & 0 & 1 & -0.5 & 0.5 \\\hline
+\end{tabular}
+}
+
+~
+
+Now all the components of $\bar{\bm{c}}$ is non-negative. We get the optimal solution $(x_1,x_2)=(4,2)$, and the optimal cost is $-10$.
+
+\subsection*{(c)}
+\centerline{\includegraphics[height=9cm]{3_12c.jpg}}
+
+\section*{Ex. 3.17}
+Phase I:
+
+We transform the original LP problem into:
+$$\text{minimize}\ \ y_1+y_2+y_3,$$
+$$\text{subj.\ to\ }\left\{\begin{aligned}
+    &x_1+3x_2+4x_4+x_5+y_1=2,\\
+    &x_1+2x_2-3x_4+x_5+y_2=2,\\
+    &-x_1+4x_2+3x_3+y_3=1,\\
+    &x_1,x_2,\ldots,x_5,y_1,y_2,y_3\ge 0.
+\end{aligned}\right.$$
+
+We begin with a BFS $\bm{x}=(0,0,0,0,0,2,2,1)^T$.
+
+~
+
+\centerline{
+\begin{tabular}{|c|cccccccc|}\hline
+-5 & -1 & -1 & -3 & -1 & -2 & 0 & 0 & 0 \\\hline
+2 & 1 & 3 & 0 & 4 & 1 & 1 & 0 & 0 \\
+2 & 1 & 2 & 0 & -3 & 1 & 0 & 1 & 0 \\
+1 & -1 & -4 & 3 & 0 & 0 & 0 & 0 & 1 \\\hline
+\end{tabular}
+}
+
+~
+
+Let $x_3$ enter the basis and $y_3$ exit the basis.
+
+~
+
+\centerline{
+\begin{tabular}{|c|cccccccc|}\hline
+-4 & -2 & -5 & 0 & -1 & -2 & 0 & 0 & 1 \\\hline
+2 & 1 & 3 & 0 & 4 & 1 & 1 & 0 & 0 \\
+2 & 1 & 2 & 0 & -3 & 1 & 0 & 1 & 0 \\
+$\frac{1}{3}$ & $-\frac{1}{3}$ & $-\frac{4}{3}$ & 1 & 0 & 0 & 0 & 0 & $\frac{1}{3}$ \\\hline
+\end{tabular}
+}
+
+~
+
+Let $x_1$ enter the basis and $y_1$ exit the basis.
+
+~
+
+\centerline{
+\begin{tabular}{|c|cccccccc|}\hline
+0 & 0 & 1 & 0 & 7 & 0 & 2 & 0 & 1 \\\hline
+2 & 1 & 3 & 0 & 4 & 1 & 1 & 0 & 0 \\
+0 & 0 & -1 & 0 & -7 & 0 & -1 & 1 & 0 \\
+1 & 0 & $-\frac{1}{3}$ & 1 & $-\frac{4}{3}$ & $\frac{1}{3}$ & $\frac{1}{3}$ & 0 & $\frac{1}{3}$ \\\hline
+\end{tabular}
+}
+
+~
+
+Let $x_2$ enter the basis and $y_2$ exit the basis.
+
+~
+
+\centerline{
+\begin{tabular}{|c|cccccccc|}\hline
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 \\\hline
+2 & 1 & 0 & 0 & -17 & 1 & -2 & 3 & 0 \\
+0 & 0 & 1 & 0 & 7 & 0 & 1 & -1 & 0 \\
+1 & 0 & 0 & 1 & $\frac{11}{3}$ & $\frac{1}{3}$ & $\frac{2}{3}$ & $-\frac{1}{3}$ & $\frac{1}{3}$ \\\hline
+\end{tabular}
+}
+
+~
+
+Now we get an initial BFS $\bm{x}=(2,0,1,0,0)^T$.
+
+Phase II:
+
+~
+
+\centerline{
+\begin{tabular}{|c|ccccc|}\hline
+-7 & 0 & 0 & 0 & 3 & -5 \\\hline
+2 & 1 & 0 & 0 & -17 & 1 \\
+0 & 0 & 1 & 0 & 7 & 0 \\
+1 & 0 & 0 & 1 & $\frac{11}{3}$ & $\frac{1}{3}$ \\\hline
+\end{tabular}
+}
+
+~
+
+Let $x_5$ enter the basis and $x_1$ exit the basis.
+
+~
+
+\centerline{
+\begin{tabular}{|c|ccccc|}\hline
+3 & 5 & 0 & 0 & -82 & 0 \\\hline
+2 & 1 & 0 & 0 & -17 & 1 \\
+0 & 0 & 1 & 0 & 7 & 0 \\
+$\frac{1}{3}$ & $-\frac{1}{3}$ & 0 & 1 & $\frac{28}{3}$ & 0 \\\hline
+\end{tabular}
+}
+
+~
+
+Let $x_4$ enter the basis and $x_2$ exit the basis.
+
+~
+
+\centerline{
+\begin{tabular}{|c|ccccc|}\hline
+3 & 5 & $\frac{82}{7}$ & 0 & 0 & 0 \\\hline
+2 & 1 & $\frac{17}{7}$ & 0 & 0 & 17 \\
+0 & 0 & $\frac{1}{7}$ & 0 & 1 & 0 \\
+$\frac{1}{3}$ & $-\frac{1}{3}$ & $-\frac{4}{3}$ & 1 & $\frac{28}{3}$ & 0 \\\hline
+\end{tabular}
+}
+
+~
+
+Now we get the optimal solution $\bm{x}=(0,0,\frac{1}{3},0,2)^T$, and the optimal cost is -3.
+
+\section*{Ex. 3.18}
+\subsection*{(a)}
+False. In one iteration of the simplex method, we always choose some $j$ s.t. $\bar{c}_j<0$. If the solution does move a positive solution, the cost must decrease.
+
+\subsection*{(b)}
+True. When we implement the full tableau method, we find some $j$ s.t. $\bar{c}_j<0$. Assume the $k$-th variable exits the basis. We know in the tableau the element in the pivot row and the pivot column must be positive. Therefore, we must add a positive multiple of the pivot row to the zero-th row. The element in the $k$-th column and the pivot row is 1, which means after the iteration, $\bar{c}_k$ must be positive, so it cannot reenter in the next iteration.
+
+\subsection*{(c)}
+False. Consider the example demonstrated in class:
+
+\centerline{\includegraphics[height=5cm]{3_18c1.png}}
+
+Let $x_1$ enter the basis and $x_5$ exit the basis. We get:
+
+\centerline{\includegraphics[height=5cm]{3_18c2.png}}
+
+In class, the example let $x_4$ exit the basis. However, we can notice that the ratio $x_{B(1)}/u_1$ and $x_{B(2)}/u_2$ are both 10. We can let $x_1$ exit the basis just after it entered the basis.
+
+\subsection*{(d)}
+False. Consider the LP problem: $$\text{minimize}\ \ x_1+x_2+x_3,$$ $$\text{subj. to}\ \ x_1+x_2+x_3=1, x_1,x_2,x_3\ge 0.$$
+$\bm{A}_1,\bm{A}_2,\bm{A}_3$ are all nondegenerate basis, but $\bm{x}=(1,0,0)^T,(0,1,0)^T\ \text{or}\ (0,0,1)^T$ are all optimal solutions.
+
+\subsection*{(e)}
+False. Consider the same example as \textbf{(d)}. $\bm{x}=(0.5, 0.5, 0)^T$ is an optimal solution while it has two positive components.
+
+\end{document}

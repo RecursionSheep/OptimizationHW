@@ -1,0 +1,84 @@
+\documentclass[12pt]{article}
+\usepackage{longtable}
+\usepackage{listings}
+\lstset{language=C++}
+\lstset{breaklines}
+\lstset{extendedchars=false}
+\usepackage{syntonly}
+\usepackage{fancyhdr}
+\usepackage{wallpaper}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[colorlinks,CJKbookmarks=true,bookmarksnumbered,linkcolor=red,citecolor=red,plainpages=true,pdfstartview=FitH]{hyperref}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{authblk}
+%\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{diagbox}
+
+\title{Introduction to Optimization Theory\\Homework Assignment 1}
+\author{Chen Zhiyang, 2017011377}
+\date{March 2019}
+
+\begin{document}
+\maketitle
+
+\section*{Ex. 2.2}
+\textbf{Proof}:
+
+For any $\bm{x},\bm{y}\in S$, we have $f(\bm{x}),f(\bm{y}) \le c$. $f$ is convex so that for any $\lambda\in [0,1]$, we have $$f(\lambda\cdot\bm{x}+(1-\lambda)\cdot\bm{y})\le \lambda f(\bm{x})+(1-\lambda)f(\bm{y})\le \lambda\cdot c+(1-\lambda)\cdot c = c,$$ which means $\lambda\cdot \bm{x}+(1-\lambda)\cdot\bm{y}\in S$. Therefore, $S$ is convex.
+
+\section*{Ex. 2.4}
+The argument is wrong in that extreme points are representation-dependent. When we convert an arbitrary LP problem to an equivalence in standard form, we might add new variables and new constraints, which may create extreme points.
+
+For example, polyhedron $P=\left\{(x,y)\big|0\le x\le 1\right\}$ does not have an extreme point, while its standard form $P^\prime=\left\{(x_0,x_1,y_0,y_1)\big|x_0-x_1=1,(x_0,x_1,y_0,y_1)\ge \bm{0}\right\}\ (x_0=x,x_1=x-1,y=y_0-y_1)$ has extreme points.
+
+\section*{Ex. 2.6}
+\subsection*{(a)}
+\textbf{Proof}:
+
+For any $\bm{y}\in C$, i.e. $\bm{y}=\sum_{i=1}^n \lambda_i\bm{A}_i,(\lambda_1,\lambda_2,\ldots,\lambda_n)\ge\bm{0}$, we could define polyhedron $$P=\left\{(\lambda_1,\lambda_2,\ldots,\lambda_n)\in\mathbb{R}^n\Big|\sum_{i=1}^n \lambda_i\bm{A}_i=y,(\lambda_1,\lambda_2,\ldots,\lambda_n)\ge\bm{0}\right\}.$$ It's obvious that $P$ is non-empty. Notice that $P$ is a polyhedron in standard form, so $P$ does not contain a line, which means $P$ has at least one extreme point (basic feasible solution) $\bm{\Lambda}^*=(\lambda_1^*,\lambda_2^*,\ldots,\lambda_n^*)$. For a basic feasible solution, there are at most $m$ non-zero components, which means $$\bm{y}=\sum_{i=1}^n \lambda_i^*\bm{A}_i$$ is a representation with at most $m$ non-zero coefficients.
+
+\subsection*{(b)}
+\textbf{Proof}:
+
+Similar to \textbf{(a)}, for any $\bm{y}=\sum_{i=1}^n \lambda_i\bm{A}_i,\sum_{i=1}^n \lambda_i=1,(\lambda_1,\lambda_2,\ldots,\lambda_n)\ge\bm{0}$, we could define polyhedron $$\Lambda=\left\{(\lambda_1,\lambda_2,\ldots,\lambda_n)\in\mathbb{R}^n\Big|\sum_{i=1}^n \lambda_i\bm{A}_i=y,\sum_{i=1}^n \lambda_i=1,(\lambda_1,\lambda_2,\ldots,\lambda_n)\ge\bm{0}\right\}$$ with $m+1$ equation constraints. Again, we know that $\Lambda$ has at least one basic feasible solution, with at most $m+1$ non-zero components, which is a representation of $\bm{y}$ with at most $m+1$ non-zero coefficients.
+
+\section*{Ex. 2.7}
+\textbf{Proof}:
+
+That $\bm{a}_1,\bm{a}_2,\ldots,\bm{a}_m$ span $\mathbb{R}^n$ means there exist $n$ linearly independent vectors in $\left\{\bm{a}_i\big|i=1,2,\ldots,m\right\}$ (i.e. $\text{rank}\,\bm{A}=\text{rank}\,[\bm{a}_1,\bm{a}_2,\ldots,\bm{a}_m]=n$), which means the polyhedron does not contain a line. Therefore, there exist $n$ linearly independent vectors that span $\mathbb{R}^n$ in $\left\{\bm{g}_i\big|i=1,2,\ldots,k\right\}$, too.
+
+\section*{Ex. 2.8}
+\textbf{Proof}:
+
+$\Rightarrow$:
+
+If a basis is associated with the basic solution $\bm{x}$, for any $i$ s.t. the $i$-th column is not in the basis, we set $x_i=0$. So if $x_i\ge 0$, the $i$-th column has to be in the basis.
+
+$\Leftarrow$:
+
+If every column $\bm{A}_i,i\in J$ is in the basis, all columns $\left\{x_i\right\}$ that are not in the basis have $x_i=0$. Therefore, the basis is associated with the solution.
+
+\section*{Ex. 2.9}
+\subsection*{(a)}
+\textbf{Proof}:
+
+If two different bases lead to the same basic solution, more than $n-m$ variables are zero, which means more than $n$ constraints are active at here.
+
+\subsection*{(b)}
+False.
+
+Degenerate basic solution may have only one basis, e.g. consider polyhedron in standard form $P=\left\{(x,y)\big|x=0,y=0,(x,y)\ge 0\right\}$. The polyhedron contains only one point, and obviously there's only one choice of basis.
+
+\subsection*{(c)}
+False.
+
+The counterexample is the same as \textbf{(b)}. There's no adjacent basic solution.
+
+\end{document}
