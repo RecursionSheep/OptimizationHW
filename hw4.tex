@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+\usepackage{longtable}
+\usepackage{listings}
+\lstset{language=C++}
+\lstset{breaklines}
+\lstset{extendedchars=false}
+\usepackage{syntonly}
+\usepackage{fancyhdr}
+\usepackage{wallpaper}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[colorlinks,CJKbookmarks=true,bookmarksnumbered,linkcolor=red,citecolor=red,plainpages=true,pdfstartview=FitH]{hyperref}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{authblk}
+%\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{diagbox}
+\usepackage{enumerate}
+
+\title{Introduction to Optimization Theory\\Homework Assignment 4}
+\author{Chen Zhiyang, 2017011377}
+\date{May 2019}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\maketitle
+
+\section*{ILO Ex. 8.5}
+\textbf{Proof}
+
+\textbf{(a)}$\Rightarrow$\textbf{(b)}
+
+If $P$ is full-dimensional, there exists an interior point $\bm{x}$ s.t. $\bm{x}\in P$ and all the constraints are not active at $\bm{x}$, i.e., $\bm{Ax}>\bm{b}$.
+
+\textbf{(b)}$\Rightarrow$\textbf{(c)}
+
+Suppose not, i.e., all the extreme points lie on the same hyperplane. Let $\bm{d}$ be a vector which is vertical to the hyperplane, since the polyhedra is the convex hull of all extreme points, for any $\lambda\in\mathbb{R}$, we have $\bm{x}+\lambda\bm{d}\notin P$, which means at least one constraint is active at $\bm{x}$ and we get a contradiction.
+
+\textbf{(c)}$\Rightarrow$\textbf{(a)}
+
+If there are $n+1$ extreme points of $P$ that do not lie on a common hyperplane, note that the convex hull of the extreme points is a subset of the polyhedra, and the convex hull has positive volume, which means the polyhedra is full-dimensional.
+
+\section*{CO Ex. 3.4}
+\textbf{Proof}
+\begin{align*}
+\int_0^1 f(x+\lambda(y-x))d\lambda&\le\int_0^1((1-\lambda)f(x)+\lambda f(y))d\lambda\\
+&=f(x)+(f(y)-f(x))\int_0^1\lambda d\lambda\\
+&=f(x)+\dfrac{1}{2}(f(y)-f(x))\\
+&=\dfrac{f(x)+f(y)}{2}.
+\end{align*}
+
+\section*{CO Ex. 3.7}
+Suppose not. There exists $\bm{x},\bm{y}$ s.t. $f(\bm{x})\neq f(\bm{y})$. WLOG, assume $f(\bm{x})<f(\bm{y}).$
+
+The function $f$ is convex indicates that $g(t)=f(\bm{x}+t(\bm{y}-\bm{x}))$ is convex, which means $g(t)>(g(1)-g(0))t+g(0),\forall t>1$. Notice that $g(1)=f(\bm{y})>f(\bm{x})=g(0)$, which means $(g(1)-g(0))t+g(0)$ is unbounded. Therefore, $g$ is unbounded, which leads to a contradiction.
+
+\section*{CO Ex. 3.11}
+\textbf{Proof}
+
+For any $\bm{x},\bm{y}\in\mathbb{R}^n$, we have $$f(\bm{y})\ge f(\bm{x})+(\nabla f(\bm{x}))^T(\bm{y}-\bm{x})\ge f(\bm{y})+(\nabla f(\bm{y}))^T(\bm{x}-\bm{y})+(\nabla f(\bm{x}))^T(\bm{y}-\bm{x}).$$
+
+Decrease by $f(\bm{y})$ in both sides, we get $$(\nabla f(\bm{y})-\nabla f(\bm{x}))^T(\bm{y}-\bm{x})\ge 0.$$
+
+~
+
+The converse is false. Consider $$g(\bm{x})=g([x_1, x_2]^T)=[2x_1, 2x_1+2x_2]^T.$$
+
+Note that $$(\bm{x}-\bm{y})^T\left[\begin{matrix} 2 & 0 \\ 2 & 2 \end{matrix}\right](\bm{x}-\bm{y})=(\bm{x}-\bm{y})^T\left[\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right](\bm{x}-\bm{y})>0,\forall \bm{x}\ne\bm{y},$$ in that $$\left[\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right]$$ is a positive definite matrix. Therefore, $g(\bm{x})$ is monotone. However, there doesn't exist a $f$ s.t. $\nabla f=g$ in that $$\dfrac{\partial^2 f}{\partial x_1\partial x_2}=0,\dfrac{\partial^2 f}{\partial x_2\partial x_1}=2,$$ which is contradictory to that $f$ is differentiable.
+
+\section*{CO Ex. 3.12}
+\textbf{Proof}
+
+Let $A=\left\{(\bm{x},t)^T:t\ge f(\bm{x})\right\},B=\left\{(\bm{x},t)^T:g(\bm{x})\ge t\right\}.$ We know $A$ and $B$ are convex sets since $f$ is convex and $g$ is concave. By separating hyperplane theorem, we know there exists a hyperplane $\left\{(\bm{x}^T,t)^T:(\bm{x}^T,t)\bm{y}=b\right\}$ separating two convex sets, i.e. $\forall \bm{a}\in A, \bm{a}^T\bm{y}>b$ and $\forall \bm{a}\in B,\bm{a}^T\bm{y}<b$.
+
+Assume $\bm{y}=(\bm{z}^T,y_0)^T$ (WLOG, assume $y_0>0$), $\forall (\bm{x}^T,t)^T\in A,$ we have $\bm{x}^T\bm{z}+ty_0>b\Leftrightarrow -\frac{\bm{z}^T}{y_0}\bm{x}-\frac{b}{y_0}<t$. Therefore, $-\frac{\bm{z}^T}{y_0}\bm{x}-\frac{b}{y_0}<f(\bm{x}),\forall\bm{x}$, i.e., $f(\bm{x})$ is lower bounded by the affine function. Similarly, $g(\bm{x})$ is upper bounded by the affine function.
+
+\section*{CO Ex. 5.15}
+\textbf{Proof}
+
+Since $f_i(\bm{x})$ is convex, $\forall \bm{x},\bm{y}\in\mathbb{R}^n,\lambda\in (0,1)$, we have $f_i(\lambda\bm{x}+(1-\lambda)\bm{y})\le\lambda f_i(\bm{x})+(1-\lambda)f_i(\bm{y})$. Since $h_i(\bm{x})$ is increasing and convex, we have $$h_i(f_i(\lambda\bm{x}+(1-\lambda)\bm{y}))\le h_i(\lambda f_i(\bm{x})+(1-\lambda)f_i(\bm{y}))\le \lambda h_i(f_i(\bm{x}))+(1-\lambda)h_i(f_i(\bm{y})).$$ Therefore, $h_i(f_i(\bm{x}))$ is convex, which means $\phi(\bm{x})=f_0(\bm{x})+\sum h_i(f_i(\bm{x}))$ is convex.
+
+~
+
+Since $\tilde{\bm{x}}$ minimizes $\phi$, we have $\nabla \phi(\tilde{\bm{x}})=\nabla f_0(\tilde{\bm{x}})+\sum h_i'(f_i(\tilde{\bm{x}}))\nabla f_i(\tilde{\bm{x}})=0.$
+
+Let $\lambda_i=h_i'(f_i(\tilde{\bm{x}}))$, we have $\lambda_i>0$ in that $h_i$ is increasing. Therefore, $\bm{\lambda}$ is dual feasible, i.e., $g(\bm{\lambda})=f_0(\tilde{\bm{x}})+\sum\lambda_i f_i(\tilde{\bm{x}})$ is a lower bound to the primal problem.
+
+\section*{CO Ex. 5.31}
+\textbf{Proof}
+
+Since $f_i$ is convex, we have $f_i(\bm{x}^*)+\nabla f_i(\bm{x}^*)^T(\bm{x}-\bm{x}^*)\le f_i(\bm{x})\le 0$. Therefore,
+\begin{align*}
+0\ge&\sum_{i=1}^m\lambda_i^*(f_i(\bm{x}^*)+\nabla f_i(\bm{x}^*)^T(\bm{x}-\bm{x}^*))\\
+=&\sum_{i=1}^m\lambda_i^*f_i(\bm{x}^*)+\lambda_i^*\nabla f_i(\bm{x}^*)^T(\bm{x}-\bm{x}^*)\\
+=&\sum_{i=1}^m\lambda_i^*\nabla f_i(\bm{x}^*)^T(\bm{x}-\bm{x}^*)\\
+=&-\nabla f_0(\bm{x}^*)(\bm{x}-\bm{x}^*),
+\end{align*}
+which is equivalent to $\nabla f_0(\bm{x}^*)(\bm{x}-\bm{x}^*)\ge 0.$
+
+\section*{CO Ex. 9.1}
+\subsection*{(a)}
+\textbf{Proof}
+
+Since $\bm{P}$ is not semi-definite positive, there exists $\bm{x}_0$ s.t. $\bm{x}_0^T\bm{P}\bm{x}_0<0$. Let $\bm{x}=k\bm{x}_0$, $f(\bm{x})=\frac{1}{2}k^2\bm{x}_0^T\bm{P}\bm{x}_0+k\bm{q}^T\bm{x}_0+r$, which is obviously unbounded below.
+
+\subsection*{(b)}
+\textbf{Proof}
+
+Rewrite $\bm{q}$ as $\bm{q}_0+\bm{v}$ s.t. $\bm{q}_0\in\text{Col}(\bm{P}),\bm{v}\perp\text{Col}(\bm{P})$, i.e., $\bm{P}\bm{v}=0$. Let $\bm{x}=k\bm{v}$, we have $$f(\bm{x})=k\bm{q}^T\bm{v}+r=k\bm{v}^T\bm{v}+r=k\|\bm{v}\|_2^2+r,$$ which is unbounded below.
+
+\end{document}
