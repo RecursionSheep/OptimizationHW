@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+\usepackage{longtable}
+\usepackage{listings}
+\lstset{language=C++}
+\lstset{breaklines}
+\lstset{extendedchars=false}
+\usepackage{syntonly}
+\usepackage{fancyhdr}
+\usepackage{wallpaper}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[colorlinks,CJKbookmarks=true,bookmarksnumbered,linkcolor=red,citecolor=red,plainpages=true,pdfstartview=FitH]{hyperref}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{authblk}
+%\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{diagbox}
+\usepackage{enumerate}
+
+\title{Introduction to Optimization Theory\\Homework Assignment 5}
+\author{Chen Zhiyang, 2017011377}
+\date{June 2019}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\maketitle
+
+\section*{Ex. 9.5}
+\textbf{Proof}
+
+Since $\nabla^2f(\bm{x})\le M\bm{I}$, we have $$f(\bm{y})\le f(\bm{x})+(\nabla f(\bm{x}))^T(\bm{y}-\bm{x})+\dfrac{M}{2}\|\bm{y}-\bm{x}\|_2^2.$$
+
+Plug in $\bm{y}=\bm{x}+t\Delta\bm{x}$, we have $$f(\bm{x}+t\Delta\bm{x})\le f(\bm{x})+t(\nabla f(\bm{x}))^T\Delta\bm{x}+\dfrac{Mt^2}{2}\|\Delta\bm{x}\|_2^2.$$
+
+The stopping criterion $f(\bm{x}+\Delta\bm{x})\le f(\bm{x})+\alpha t\nabla f(\bm{x})\Delta\bm{x}$ is satisfied if $$t(\alpha-1)(\nabla f(\bm{x}))^T\Delta\bm{x}\ge\dfrac{Mt^2}{2}\|\Delta\bm{x}\|_2^2,$$ which means $$t\le-2(1-\alpha)\dfrac{\nabla f(\bm{x})^T\Delta\bm{x}}{M\|\Delta\bm{x}\|_2^2}.$$ Since $0<\alpha<0.5$, we have $$0<t\le-\dfrac{\nabla f(\bm{x})^T\Delta\bm{x}}{M\|\Delta\bm{x}\|_2^2}=t_{\max}.$$
+
+From $\beta^s\le \min(t_{\max},1)$, the number of iterations is upper bounded by $s\le\log_{\beta}\min(t_{\max},1)$.
+
+\section*{Ex. 9.10}
+\subsection*{(a)}
+$$f'(x)=\dfrac{e^{2x}-1}{e^{2x}+1},f''(x)=\dfrac{4e^{2x}}{(e^{2x}+1)^2}.$$
+
+Initially, $x^{(0)}=1$.
+
+First iteration: $$x^{(1)}=x^{(0)}-\dfrac{f'(x^{(0)})}{f''(x^{(0)})}=-0.813.$$
+
+Second iteration: $$x^{(2)}=x^{(1)}-\dfrac{f'(x^{(1)})}{f''(x^{(1)})}=0.409.$$
+
+(The algorithm converges.)
+
+Initially, $x^{(0)}=1.1$.
+
+First iteration: $$x^{(1)}=x^{(0)}-\dfrac{f'(x^{(0)})}{f''(x^{(0)})}=-1.129.$$
+
+Second iteration: $$x^{(2)}=x^{(1)}-\dfrac{f'(x^{(1)})}{f''(x^{(1)})}=1.234.$$
+
+(The algorithm fails to converge.)
+
+\subsection*{(b)}
+$$f'(x)=-\dfrac{1}{x}+1,f''(x)=\dfrac{1}{x^2}.$$
+
+Initially, $x^{(0)}=3$.
+
+First iteration: $$x^{(1)}=x^{(0)}-\dfrac{f'(x^{(0)})}{f''(x^{(0)})}=-3.$$
+
+Note that $x^{(1)}\notin \textbf{dom}\ f$.
+
+\section*{Ex. 10.1}
+\subsection*{(a)}
+\textbf{Proof}
+
+Label non-singularity of the KKT matrix and the four statements as (0), (1), (2), (3) and (4), respectively.
+
+$(0)\Rightarrow(1)$:
+
+Suppose not, \textit{i.e.}, there exists an $\bm{x}$ s.t. $\bm{Ax}=\bm{Px}=\bm{0}, \bm{x}\neq\bm{0}$, and the KKT matrix is non-singular. However, note that $$\left[\begin{matrix} \bm{P} & \bm{A}^T \\ \bm{A} & \bm{0} \end{matrix}\right]\left[\begin{matrix} \bm{x} \\ \bm{0} \end{matrix}\right]=\bm{0},$$ which means the KKT matrix is singular. This is a contradiction.
+
+$(1)\Rightarrow(0)$:
+
+Suppose the KKT matrix is singular, \textit{i.e.}, $$\left[\begin{matrix} \bm{P} & \bm{A}^T \\ \bm{A} & \bm{0} \end{matrix}\right]\left[\begin{matrix} \bm{x} \\ \bm{y} \end{matrix}\right]=\bm{0},\left[\begin{matrix} \bm{x} \\ \bm{y} \end{matrix}\right]\neq\bm{0}.$$ $$\bm{Px}+\bm{A}^T\bm{y}=\bm{0}\Rightarrow\bm{x}^T\bm{Px}+(\bm{Ax})^T\bm{y}=\bm{x}^T\bm{Px}=\bm{0}\Rightarrow\bm{x}=\bm{0},\bm{y}\neq\bm{0}\Rightarrow\bm{A}^T\bm{y}=\bm{0},$$ which contradicts $\text{rank}\,\bm{A}=p.$
+
+$(1)\Rightarrow(2)$:
+
+Suppose $\bm{Ax}=\bm{x}^T\bm{Px}=\bm{0},\bm{x}\neq\bm{0}$. Since $\bm{P}\ge 0$, we have $\bm{Px}=\bm{0}$, which means $\bm{x}\in\mathcal{N}(\bm{P})\cap\mathcal{N}(\bm{A})$. Contradiction.
+
+$(2)\Rightarrow(4)$:
+
+Let $\bm{Q}=\bm{I}$, obviously we have $\bm{P}+\bm{A}^T\bm{A}>0$.
+
+$(4)\Rightarrow(1)$:
+
+Suppose $\bm{x}\in\mathcal{N}(\bm{P})\cap\mathcal{N}(\bm{A}),\bm{x}\neq\bm{0}$, we have $$\bm{Px}+\bm{Ax}=\bm{0}\Rightarrow \bm{x}^T(\bm{P}+\bm{A}^T\bm{QA})\bm{x}=\bm{0},$$ which is a contradiction.
+
+$(2)\Leftrightarrow(3)$:
+
+If $\bm{Ax}=\bm{0},\bm{x}\neq\bm{0},\bm{x}^T\bm{Px}>0$, since $\bm{x}\in\mathcal{R}(\bm{F})$, $\bm{x}=\bm{Fy}$ for some $\bm{y}\neq\bm{0}$. We have $$\bm{x}^T\bm{Px}=\bm{y}^T(\bm{F}^T\bm{PF})\bm{y}>0\Leftrightarrow\bm{F}^T\bm{PF}>0.$$
+
+The above reductions form a strongly-connected directed graph, \textit{i.e.}, the statements are equivalent.
+
+\section*{Ex. 10.9}
+\subsection*{(a)}
+It is obvious that $f$ is a convex function. Suppose the dual optimal cost is $p^*$. If $p^*$ is not a feasible cost, either $$\lim_{\bm{x}\rightarrow\infty}f(\bm{x})=p^*,$$ or $$\lim_{\bm{x}\rightarrow\bm{x}^*}f(\bm{x})=p^*,$$ where $\bm{x}^*$ has zero components.
+
+Note that $\lim_{x\rightarrow\infty}x\log x=\infty$, the first situation is impossible.
+
+As for the second situation, let $\Delta\bm{x}=\bm{x}-\bm{x}^*$, $g(t)=\sum (x_i^*+t\Delta x_i)\log(x_i^*+t\Delta x_i), t>0.$ We have $$g'(t)=\sum\Delta x_i(1+\log(x_i^*+t\Delta x_i)).$$ If $x_i^*=0$, $\Delta x_i>0$, which means $\lim_{t\rightarrow 0}g(t)=-\infty$. This is also impossible.
+
+\section*{Ex. 11.4}
+Let $\phi$ be the barrier function of \textbf{Ex. 11.1}. We have $$\nabla^2(tf_0+\phi)=\nabla^2(tf_0+\tilde{\phi})+\dfrac{2}{R^2-\|\bm{x}\|_2^2}\bm{I}+\dfrac{4}{(R^2-\|\bm{x}\|_2^2)^2}\bm{x}\bm{x}^T\ge\dfrac{2}{R^2}\bm{I}.$$
+
+We can take $m=\frac{2}{R^2}.$
+
+\end{document}
