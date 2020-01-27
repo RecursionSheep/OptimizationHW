@@ -1,6 +1,6 @@
-# Introduction to Optimization Theory - 2019 Spring
+# Introduction to Optimization Theory
 
-Homework assignments of the course ``Introduction to Optimization Theory'' are kept here.
+Homework assignments of the course Introduction to Optimization Theory, 2019 Spring, Tsinghua University, are kept here.
 
 The problems are from the textbook:
 
